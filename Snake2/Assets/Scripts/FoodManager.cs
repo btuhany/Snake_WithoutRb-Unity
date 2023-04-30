@@ -30,7 +30,14 @@ public class FoodManager : MonoBehaviour
         int x = GridManager.Instance.GridX;
         int y = GridManager.Instance.GridY;
         Vector3Int randomPos = new Vector3Int(Random.Range(0, x), Random.Range(0, y), 0);
-        _currentFood.transform.position = randomPos;
-        GridManager.Instance.AssignToCell(_foodPrefab, randomPos.x, randomPos.y);
+        if(GridManager.Instance.IsCellFull(randomPos.x, randomPos.y))
+        {
+            TeleportToRandomPos();
+        }
+        else
+        {
+            _currentFood.transform.position = randomPos;
+            GridManager.Instance.AssignToCell(_foodPrefab, randomPos.x, randomPos.y);
+        }
     }
 }
